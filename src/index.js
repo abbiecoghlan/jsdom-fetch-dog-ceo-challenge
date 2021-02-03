@@ -39,7 +39,9 @@ function addBreedsToDOM(breedInfo){
     })
 }
 
-
+function addingEventListener(){
+    // let dogList = document.querySelector
+}
 
 
 fetchImageInfo()
