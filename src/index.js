@@ -22,10 +22,13 @@ function addImagesToDOM(imageInfo){
 
 const breedUrl = 'https://dog.ceo/api/breeds/list/all' 
 
+let breedInformation = ""
+
 function fetchBreedInfo(){
     fetch(breedUrl)
     .then( res => res.json() )
     .then( breedInfo => {
+        breedInformation = breedInfo
         addBreedsToDOM(breedInfo)
     })
 }
@@ -39,10 +42,37 @@ function addBreedsToDOM(breedInfo){
     })
 }
 
-function addingEventListener(){
-    // let dogList = document.querySelector
+function addingBreedListener(){
+    const dogList = document.querySelector("#dog-breeds")
+    dogList.addEventListener('click', function(e){
+      e.target.style.color = "blue" 
+      
+    })
+}
+
+function addingSelectListener(){
+    const dropdown = document.querySelector("#breed-dropdown")
+
+    dropdown.addEventListener('change', function(e){
+        addBreedsToDOM(breedInformation)
+        let dogLis = document.querySelectorAll('ul#dog-breeds>li')
+
+        dogLis.forEach(node => {
+
+            if (node.innerText[0] !== e.target.value.toUpperCase()){
+                node.style.display = "none"
+            }
+            else {
+                node.style.display = ""
+            }
+            
+
+        })
+    })
 }
 
 
 fetchImageInfo()
 fetchBreedInfo()
+addingBreedListener()
+addingSelectListener()
